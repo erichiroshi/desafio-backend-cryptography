@@ -1,36 +1,133 @@
-# Criptografia
+<p align="center" width="100%">
+    <img width="30%" src="https://avatars3.githubusercontent.com/u/30732658?v=4&s=200.jpg"> 
+</p>
 
-Seu desafio será implementar a criptografia em um serviço de forma transparente para a API e para as camadas de
-serviço de sua aplicação. O objetivo é garantir que os campos sensíveis dos objetos de entidade não sejam visíveis
-diretamente, realizando a criptografia em tempo de execução durante a conversão da entidade para a coluna correspondente
-no banco de dados, e vice-versa.
 
-## Exemplo
+<h3 align="center">
+  Desafio Backend: Criptografia
+</h3>
 
-Considere os campos `userDocument` e `creditCardToken` como campos sensíveis que devem ser criptografados. A tabela de
-exemplo seria a seguinte:
+<p align="center">
 
-| id | userDocument     | creditCardToken | value |
-|:---|:-----------------|:----------------|:------|
-| 1  | MzYxNDA3ODE4MzM= | YWJjMTIz        | 5999  |
-| 2  | MzI5NDU0MTA1ODM= | eHl6NDU2        | 1000  |
-| 3  | NzYwNzc0NTIzODY= | Nzg5eHB0bw==    | 1500  |
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-%2304D361">
+  <img alt="Language: Java" src="https://img.shields.io/badge/language-java-green">
+  <img alt="Version: 1.0" src="https://img.shields.io/badge/version-1.0-yellowgreen">
 
-A estrutura da entidade correspondente seria a seguinte:
+</p>
 
-| Campo           | Tipo   |
-|:----------------|:-------|
-| id              | Long   |
-| userDocument    | String |
-| creditCardToken | String |
-| value           | Long   |
+Resolução do desafio proposto pelo repositório Backend Brasil, confira detalhes [neste link](https://github.com/backend-br/desafios/blob/master/cryptography/PROBLEM.md).
 
-## Requisitos
 
-- Implemente um CRUD simples considerando os campos mencionados acima como sensíveis.
-- Utilize o algoritmo de criptografia de sua preferência. Sugestões: [SHA-512](https://en.wikipedia.org/wiki/SHA-2) ou
-  [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2).
+# Sumário
 
-## Soluções
++ [1 - Tecnologias utilizadas](#tecnologias-utilizadas)
++ [2 - Entenda o desafio](#entenda-o-desafio)
++ [3 - Como interagir com o banco de dados?](#como-interagir-com-o-banco-de-dados)
++ [4 - Como interagir com a API?](#como-interagir-com-a-api)
++ [5 - Desenvolvimento](#desenvolvimento)
++ [6 - Construção](#construção)
++ [7 - Contribuições](#contribuições)
++ [8 - Links](#links)
++ [9 - Exemplos de Uso](#exemplos)
 
-Neste [tópico](SOLUTIONS.md), você encontrará soluções para esse desafio, feitas por outros membros da comunidade.
+
+## Tecnologias utilizadas
+
+* Java 21
+* Spring Boot
+* Criptografia
+* Jasypt
+* MySQL
+* Docker
+* OpenAPI
+
+## Entenda o desafio
+
+Leio o [readme](PROBLEM.md) do problema.
+
+## Como interagir com o banco de dados?
+- Utilizamos o [MySQL](https://www.mysql.com/) + [phpMyAdmin](https://www.phpmyadmin.net/)
+
+Acesse a pasta docker, abra o prompt e digite o comando:
+
+```
+docker-compose up -d
+```
+
+Irá subir o banco de dados MySQL + phpMyAdmin.
+Para acessar o phpMyAdmin, acesse: http://localhost:8081/
+
+usuário: root
+
+senha: 123456
+
+![banco-dados-01](imagens/login-db.png)
+
+
+
+
+## Como interagir com a API?
+- Utilizamos o [Postman](https://www.postman.com/) - para realizar as requisições.
+- O projeto tem a dependência da OpenAPI Swagger, subindo o projeto você pode fazer as requisões pela url: http://localhost:8080/swagger-ui/index.html
+
+## Desenvolvimento
+
+Para iniciar o desenvolvimento, é necessário clonar o projeto do GitHub num diretório de sua preferência:
+
+```shell
+cd "diretorio de sua preferencia"
+git clone https://github.com/erichiroshi/desafio-backend-cryptography
+```
+
+## Construção
+
+Para construir o projeto com o Maven, executar os comando abaixo:
+
+```shell
+mvn clean install
+ou
+.\mvnw clean install 
+```
+
+O comando irá baixar todas as dependências do projeto e criar um diretório *target* com os artefatos construídos, que incluem o arquivo jar do projeto. Além disso, serão executados os testes unitários, e se algum falhar, o Maven exibirá essa informação no console.
+
+## Contribuições
+
+Contribuições são sempre bem-vindas! Para contribuir lembre-se sempre de adicionar testes unitários para as novas classes com a devida documentação.
+
+## Links
+[Link do desafio](https://github.com/backend-br/desafios/blob/master/cryptography/PROBLEM.md).
+
+## Exemplos
+### 📨 Requisições
+
+| Método | Url | Descrição | Corpo da requisição |
+| --- | --- | --- | --- |
+| POST | /transactions | Crie uma nova transação. | [JSON](#criartransacao) |
+| GET | /transactions | Busque todas transações paginada. | |
+| GET | /transactions/{id} | Busque uma transação por id. | |
+| PUT | /transactions/{id} | Atualiza o valor da transação por id. | [JSON](#atualizartransacao) |
+| DELETE | /transactions/{id} | Apague uma transação por id. | |
+---
+### 📄 Corpo das requisições
+
+##### <a id="criartransacao">/transactions - Criando uma nova transação.</a>
+
+```json
+{
+  "userDocument": "document",
+  "creditCardToken": "credit card token",
+  "value": 100 
+}
+```
+
+##### <a id="atualizartransacao">/transactions/{id} - Atualizando uma transação.</a>
+
+```json
+{
+  "value": 50 
+}
+```
+
+
+## Developed by Eric Hiroshi
